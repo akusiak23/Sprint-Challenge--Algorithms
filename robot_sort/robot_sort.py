@@ -102,23 +102,31 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        # Starts bot
-        self.set_light_on()
-        while self.can_move_right():
-            self.swap_item
-            self.move_right()
-            if self.compare_item() == 1:
+        # added base using light per brady's suggestion
+        self.set_light_off()
+        while self.light_is_on() is False:
+            self.set_light_on()
+            # using light as boolean
+            while self.can_move_right():
                 self.swap_item()
+                self.move_right()
+                if self.compare_item() > 0:
+                    self.swap_item()
+                    self.set_light_off()
                 self.move_left()
                 self.swap_item()
                 self.move_right()
-                self.set_light_off()
-            else:
-                self.move_left()
-                self.swap_item()
-        if not self.light_is_on():
+            if self.light_is_on():
+                break
+            self.set_light_on()
             while self.can_move_left():
+                self.swap_item()
+                self.move_left()
+                if self.compare_item() < 0:
+                    self.swap_item()
+                    self.set_light_off()
+                self.move_right()
+                self.swap_item()
                 self.move_left()
 
 
